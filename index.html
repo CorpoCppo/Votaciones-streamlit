@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Empleados</title>
+</head>
+<body>
+
+<h2>Formulario de Empleados</h2>
+
+<form id="formularioEmpleados">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="departamento">Departamento:</label>
+    <select id="departamento" name="departamento" required>
+        <option value="" disabled selected>Selecciona un departamento</option>
+        <option value="1">Ventas</option>
+        <option value="2">Desarrollo</option>
+        <option value="3">Recursos Humanos</option>
+    </select>
+
+    <button type="button" onclick="agregarEmpleado()">Agregar Empleado</button>
+</form>
+
+<script>
+function agregarEmpleado() {
+    // Obtener datos del formulario
+    var nombre = document.getElementById('nombre').value;
+    var departamentoID = document.getElementById('departamento').value;
+
+    // Aquí podrías realizar una petición AJAX para enviar los datos al servidor y almacenarlos en la base de datos.
+    // En este ejemplo, simplemente mostramos los datos en la consola.
+    console.log("Nombre: " + nombre);
+    console.log("Departamento ID: " + departamentoID);
+
+    // Puedes restablecer el formulario después de agregar un empleado si es necesario
+    document.getElementById('formularioEmpleados').reset();
+}
+</script>
+
+</body>
+</html>
