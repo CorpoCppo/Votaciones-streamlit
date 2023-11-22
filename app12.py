@@ -25,13 +25,18 @@ conn.commit()
 
 # Función para validar RUT chileno
 def validar_rut(rut):
-    patron_rut = re.compile(r'^\d{7,8}[-][0-9kK]$')
+    # Expresión regular para validar RUT chileno
+    patron_rut = re.compile(r'^[0-9]+-[0-9kK]{1}$')
     if not patron_rut.match(rut):
         return False
 
-    rut_numero, verificador = rut.split('-')
+    # Separar el número y el dígito verificador
+    rut_numero, verificador = rut[:-1], rut[-1]
+
+    # Reemplazar puntos y convertir a entero
     rut_numero = int(rut_numero)
 
+    # Calcular el dígito verificador esperado
     suma = 0
     multiplo = 2
 
@@ -42,7 +47,8 @@ def validar_rut(rut):
     resto = suma % 11
     digito_verificador_esperado = str(11 - resto) if resto != 0 else '0'
 
-    return digito_verificador_esperado == verificador.upper()
+    # Comparar el dígito verificador
+    return digito_verificador_esperado.upper() == verificador.upper()
 
 # Función para votar
 def votar(rut, candidato, justificacion):
@@ -69,8 +75,7 @@ def main():
     st.title("Aplicación de Votación")
 
     # Obtener RUT del usuario
-    st.markdown("## El rut debe ser en formato 9780133-1 ")
-    rut = st.text_input("Ingrese su RUT:")
+    rut = st.text_input("Ingrese su RUT chileno:")
 
     # Validar el RUT
     if not validar_rut(rut):
@@ -84,11 +89,8 @@ def main():
         st.stop()
 
     # Mostrar lista de candidatos
-    candidatos = ['Alejandra Rojas Alfaro', 'Carlos Carrasco Varas', 'Carlos Flores Zuñiga ', 'Daniel Caminada Cortez', 'Daniela Aróstica Salinas',
-                  'Daniela Castillo Morales', 'David Villarroel Esteban', 'Delia Carmona Durán', 'Eduardo López Pizarro', 'Ericko Carvajal Barrera',
-                  'Evelyn Jara Varas','Felipe Castillo Manquecoy','Felipe Guerrero Tabilo','Franco Espinoza Lobos','Leonardo Piñones Castillo',
-                  'Lissette Borja Soto','Lorena Miranda Arrocet','Luis Olivares Cano','María Eugenia Herrera Campusano','Maylin Rivera Escobar',
-                  'Rodrigo Leyton Araya','Vanessa Millacheo Acuna','Victor Quevedo Araya','Ximena Zenteno Aguirre']
+    candidatos = ['Candidato 1', 'Candidato 2', 'Candidato 3', 'Candidato 4', 'Candidato 5',
+                  'Candidato 6', 'Candidato 7', 'Candidato 8', 'Candidato 9', 'Candidato 10']
     candidato_elegido = st.selectbox("Seleccione su candidato:", candidatos)
 
     # Justificación del voto

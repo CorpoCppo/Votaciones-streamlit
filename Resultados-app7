@@ -1,0 +1,6 @@
+''' Descomentar.
+    # Mostrar resultados
+    st.subheader("Resultados Parciales:")
+    df_resultados = obtener_resultados()
+    st.dataframe(df_resultados)
+'''

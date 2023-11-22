@@ -43,8 +43,11 @@ def main():
         st.stop()
 
     # Mostrar lista de candidatos
-    candidatos = ['Candidato 1', 'Candidato 2', 'Candidato 3', 'Candidato 4', 'Candidato 5',
-                  'Candidato 6', 'Candidato 7', 'Candidato 8', 'Candidato 9', 'Candidato 10']
+    candidatos = ['Alejandra Rojas Alfaro', 'Carlos Carrasco Varas', 'Carlos Flores Zuñiga ', 'Daniel Caminada Cortez', 'Daniela Aróstica Salinas',
+                  'Daniela Castillo Morales', 'David Villarroel Esteban', 'Delia Carmona Durán', 'Eduardo López Pizarro', 'Ericko Carvajal Barrera',
+                  'Evelyn Jara Varas','Felipe Castillo Manquecoy','Felipe Guerrero Tabilo','Franco Espinoza Lobos','Leonardo Piñones Castillo',
+                  'Lissette Borja Soto','Lorena Miranda Arrocet','Luis Olivares Cano','María Eugenia Herrera Campusano','Maylin Rivera Escobar',
+                  'Rodrigo Leyton Araya','Vanessa Millacheo Acuna','Victor Quevedo Araya','Ximena Zenteno Aguirre']
     candidato_elegido = st.selectbox("Seleccione su candidato:", candidatos)
 
     # Justificación del voto

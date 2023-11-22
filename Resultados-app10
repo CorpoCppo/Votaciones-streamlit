@@ -1,0 +1,18 @@
+# Mostrar resultados
+st.subheader("Resultados Parciales:")
+df_resultados = obtener_resultados()
+st.dataframe(df_resultados)
+
+# Visualizar gráfico del candidato más votado
+candidato_mas_votado = obtener_candidato_mas_votado()
+if candidato_mas_votado:
+    st.subheader("Candidato más votado:")
+    st.write(f"El candidato más votado hasta ahora es: {candidato_mas_votado}")
+
+    # Graficar
+    st.subheader("Gráfico de Votos por Candidato:")
+    plt.figure(figsize=(8, 8))
+    df_votos_candidato = df_resultados['candidato'].value_counts()
+    plt.pie(df_votos_candidato, labels=df_votos_candidato.index, autopct='%1.1f%%', startangle=140)
+    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    st.pyplot(plt)

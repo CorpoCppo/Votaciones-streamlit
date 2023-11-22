@@ -24,25 +24,27 @@ cursor.execute('''
 conn.commit()
 
 # Función para validar RUT chileno
-def validar_rut(rut):
-    patron_rut = re.compile(r'^\d{7,8}[-][0-9kK]$')
-    if not patron_rut.match(rut):
+def valida_rut(rut_completo):
+    if not re.match(r'^\d+-[0-9kK]$', rut_completo, re.IGNORECASE):
         return False
 
-    rut_numero, verificador = rut.split('-')
-    rut_numero = int(rut_numero)
+    rut, digv = rut_completo.split('-')
 
-    suma = 0
-    multiplo = 2
+    if digv.lower() == 'k':
+        digv = 'k'
 
-    for digito in reversed(str(rut_numero)):
-        suma += int(digito) * multiplo
-        multiplo = multiplo + 1 if multiplo < 7 else 2
+    return calcular_dv(rut) == digv
 
-    resto = suma % 11
-    digito_verificador_esperado = str(11 - resto) if resto != 0 else '0'
+# Función para calcular el dígito verificador
+def calcular_dv(rut):
+    M = 0
+    S = 1
 
-    return digito_verificador_esperado == verificador.upper()
+    for T in reversed(list(map(int, rut))):
+        S = (S + T * (9 - M % 6)) % 11
+        M += 1
+
+    return str(S - 1) if S else 'k'
 
 # Función para votar
 def votar(rut, candidato, justificacion):
@@ -69,11 +71,10 @@ def main():
     st.title("Aplicación de Votación")
 
     # Obtener RUT del usuario
-    st.markdown("## El rut debe ser en formato 9780133-1 ")
-    rut = st.text_input("Ingrese su RUT:")
+    rut = st.text_input("Ingrese su RUT chileno:")
 
     # Validar el RUT
-    if not validar_rut(rut):
+    if not valida_rut(rut):
         st.warning("El formato del RUT no es válido.")
         st.stop()
 
