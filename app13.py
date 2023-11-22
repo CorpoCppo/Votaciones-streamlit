@@ -68,10 +68,11 @@ def obtener_candidato_mas_votado():
 
 # Aplicación Streamlit
 def main():
-    st.title("Aplicación de Votación")
+    st.title("Aplicación de Votación 🗳️")
 
     # Obtener RUT del usuario
-    rut = st.text_input("Ingrese su RUT chileno:")
+    st.markdown("## El rut debe ser en formato 9780133-1 ")
+    rut = st.text_input("Ingrese su RUT:")
 
     # Validar el RUT
     if not valida_rut(rut):
